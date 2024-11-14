@@ -1,5 +1,6 @@
 package com.siwol.board.domain;
 
+import com.siwol.board.dto.request.BoardRequestDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,4 +23,9 @@ public class Board {
 
     @NotBlank
     private String contents;
+
+    public Board(BoardRequestDto boardRequestDto) {
+        this.title = boardRequestDto.getTitle();
+        this.contents = boardRequestDto.getContents();
+    }
 }
