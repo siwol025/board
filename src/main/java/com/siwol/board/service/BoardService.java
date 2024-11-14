@@ -14,17 +14,27 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     public BoardResponseDto createPost(BoardRequestDto boardRequestDto) {
-        Board board = boardRepository.save(new Board(boardRequestDto));
-        return new BoardResponseDto(board);
+        Board board = boardRepository.save(boardRequestDto.toBoard());
+        return BoardResponseDto.of(board);
     }
 
     public List<BoardResponseDto> getPosts() {
-        return boardRepository.findAll().stream().map(BoardResponseDto::new).toList();
+        return boardRepository.findAll().stream().map(BoardResponseDto::of).toList();
     }
 
     public BoardResponseDto getPostById(Long id) {
-        return boardRepository.findById(id).map(BoardResponseDto::new).orElseThrow(
+        return boardRepository.findById(id).map(BoardResponseDto::of).orElseThrow(
                 () -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
         );
+    }
+
+    public BoardResponseDto updatePostById(Long id, BoardRequestDto boardRequestDto) {
+        Board board = boardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
+        );
+
+        Board updateBoard = board.update(boardRequestDto);
+
+        return BoardResponseDto.of(updateBoard);
     }
 }

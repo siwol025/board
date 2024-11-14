@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,12 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/Board")
+@RequestMapping("/api/Boards")
 public class BoardController {
     private final BoardService boardService;
 
-    @PostMapping("/posts")
-    public ResponseEntity<BoardResponseDto> createPost(@RequestBody BoardRequestDto boardRequestDto) {
+    @PostMapping
+    public ResponseEntity<BoardResponseDto> addPost(@RequestBody BoardRequestDto boardRequestDto) {
         return ResponseEntity.ok(boardService.createPost(boardRequestDto));
     }
 
@@ -35,5 +36,10 @@ public class BoardController {
     @GetMapping("/{id}")
     public ResponseEntity<BoardResponseDto> getPostById(@PathVariable Long id) {
         return ResponseEntity.ok(boardService.getPostById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<BoardResponseDto> updatePost(@PathVariable Long id, @RequestBody BoardRequestDto boardRequestDto) {
+        return ResponseEntity.ok(boardService.updatePostById(id,boardRequestDto));
     }
 }

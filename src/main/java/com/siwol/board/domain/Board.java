@@ -7,12 +7,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +26,17 @@ public class Board {
     @NotBlank
     private String contents;
 
-    public Board(BoardRequestDto boardRequestDto) {
+    @Builder
+    public Board(Long id, String title, String contents) {
+        this.id = id;
+        this.title = title;
+        this.contents = contents;
+    }
+
+    public Board update(BoardRequestDto boardRequestDto) {
         this.title = boardRequestDto.getTitle();
         this.contents = boardRequestDto.getContents();
+
+        return this;
     }
 }
