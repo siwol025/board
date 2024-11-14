@@ -4,6 +4,7 @@ import com.siwol.board.domain.Board;
 import com.siwol.board.dto.request.BoardRequestDto;
 import com.siwol.board.dto.response.BoardResponseDto;
 import com.siwol.board.repository.BoardRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +16,9 @@ public class BoardService {
     public BoardResponseDto createPost(BoardRequestDto boardRequestDto) {
         Board board = boardRepository.save(new Board(boardRequestDto));
         return new BoardResponseDto(board);
+    }
+
+    public List<BoardResponseDto> getPosts() {
+        return boardRepository.findAll().stream().map(BoardResponseDto::new).toList();
     }
 }
