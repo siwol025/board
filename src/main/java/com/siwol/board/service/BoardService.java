@@ -21,4 +21,10 @@ public class BoardService {
     public List<BoardResponseDto> getPosts() {
         return boardRepository.findAll().stream().map(BoardResponseDto::new).toList();
     }
+
+    public BoardResponseDto getPostById(Long id) {
+        return boardRepository.findById(id).map(BoardResponseDto::new).orElseThrow(
+                () -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
+        );
+    }
 }
