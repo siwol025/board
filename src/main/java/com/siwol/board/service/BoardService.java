@@ -4,6 +4,7 @@ import com.siwol.board.domain.Board;
 import com.siwol.board.dto.request.BoardRequestDto;
 import com.siwol.board.dto.response.BoardResponseDto;
 import com.siwol.board.repository.BoardRepository;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ public class BoardService {
         );
     }
 
+    @Transactional
     public BoardResponseDto updatePostById(Long id, BoardRequestDto boardRequestDto) {
         Board board = boardRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
@@ -36,5 +38,10 @@ public class BoardService {
         Board updateBoard = board.update(boardRequestDto);
 
         return BoardResponseDto.of(updateBoard);
+    }
+
+    @Transactional
+    public void deletePostById(Long id) {
+        boardRepository.deleteById(id);
     }
 }
