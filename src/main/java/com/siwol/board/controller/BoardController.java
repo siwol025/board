@@ -31,12 +31,12 @@ public class BoardController {
 
     @GetMapping
     public ResponseEntity<List<BoardResponseDto>> getAllPosts() {
-        return ResponseEntity.ok(boardService.getPosts());
+        return ResponseEntity.ok(boardService.findAllPosts());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<BoardResponseDto> getPostById(@PathVariable Long id) {
-        return ResponseEntity.ok(boardService.getPostById(id));
+        return ResponseEntity.ok(boardService.findPostById(id));
     }
 
     @PutMapping("/{id}")

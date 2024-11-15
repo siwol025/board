@@ -1,7 +1,6 @@
 package com.siwol.board.dto.response;
 
-import com.siwol.board.domain.Board;
-import com.siwol.board.dto.request.BoardRequestDto;
+import com.siwol.board.domain.entity.Board;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

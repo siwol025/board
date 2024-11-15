@@ -1,7 +1,6 @@
-package com.siwol.board.domain;
+package com.siwol.board.domain.entity;
 
 import com.siwol.board.dto.request.BoardRequestDto;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
