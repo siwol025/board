@@ -7,7 +7,8 @@
 </head>
 <body>
 <h1>로그인</h1>
-<form action="/accounts/login" method="post">
+<!-- 로그인 폼 -->
+<form action="" method="post">
   <label for="username">사용자명:</label>
   <input type="text" id="username" name="username" required><br><br>
 
@@ -16,6 +17,8 @@
 
   <button type="submit">로그인</button>
 </form>
-<p th:if="${param.error}" style="color: red;">로그인에 실패했습니다. 사용자명을 확인해주세요.</p>
+
+<!-- 오류 메시지 표시 -->
+<p th:if="${param.error}" style="color: red;">로그인에 실패했습니다. 사용자명과 비밀번호를 확인해주세요.</p>
 </body>
 </html>

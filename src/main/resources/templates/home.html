@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +11,18 @@
   <h1 class="mt-5">홈 페이지</h1>
 
   <div class="mt-4">
-    <!-- 로그인 페이지로 이동하는 버튼 -->
-    <a href="/accounts/login" class="btn btn-primary">로그인</a>
+    <div th:if="${user != null}">
+      <p>안녕하세요, <span th:text="${user.username}"></span>님!</p>
+      <form action="/accounts/logout" method="post">
+        <button type="submit">로그아웃</button>
+      </form>
+    </div>
+
+    <div th:if="${user == null}">
+      <p th:text="${message}"></p>
+      <a href="/accounts/login">로그인</a>
+      <a href="/accounts/signup">회원가입</a>
+    </div>
 
     <!-- 전체 게시글 페이지로 이동하는 버튼 -->
     <a href="/boards" class="btn btn-secondary">전체 게시글</a>
