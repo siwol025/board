@@ -17,11 +17,4 @@ public class UserRequestDto {
         this.username = username;
         this.password = password;
     }
-
-    public User toUser() {
-        return User.builder()
-                .username(this.username)
-                .password(this.password)
-                .build();
-    }
 }
