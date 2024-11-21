@@ -4,6 +4,7 @@ import com.siwol.board.user.dto.request.LoginRequestDto;
 import com.siwol.board.user.dto.request.UserRequestDto;
 import com.siwol.board.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,5 +46,14 @@ public class UserController {
         } catch (IllegalArgumentException e) {
             return "accounts/signup";
         }
+    }
+
+    @PostMapping("/logout")
+    public String logOut(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/home";
     }
 }
