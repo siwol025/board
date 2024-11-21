@@ -1,4 +1,4 @@
-package com.siwol.board.member.domain.entitiy;
+package com.siwol.board.user.domain.entitiy;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
