@@ -43,7 +43,7 @@ public class UserService {
     }
 
     public void checkPassword(LoginRequestDto loginRequestDto, User user) {
-        if(user.getPassword().equals(loginRequestDto.getPassword())) {
+        if(!user.getPassword().equals(loginRequestDto.getPassword())) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
     }

@@ -1,6 +1,7 @@
 package com.siwol.board.user.controller;
 
 import com.siwol.board.user.dto.request.LoginRequestDto;
+import com.siwol.board.user.dto.request.UserRequestDto;
 import com.siwol.board.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,21 @@ public class UserController {
             return "redirect:/home";
         } catch (IllegalArgumentException e) {
             return "accounts/login";
+        }
+    }
+
+    @GetMapping("/signup")
+    public String signUpForm() {
+        return "accounts/signup";
+    }
+
+    @PostMapping("/signup")
+    public String signUp(@ModelAttribute UserRequestDto userRequestDto) {
+        try {
+            userService.signUp(userRequestDto);
+            return "redirect:/accounts/login";
+        } catch (IllegalArgumentException e) {
+            return "accounts/signup";
         }
     }
 }
