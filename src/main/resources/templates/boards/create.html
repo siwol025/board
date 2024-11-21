@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>글 작성</title>
+  <link rel="stylesheet" href="/css/style.css"> <!-- 필요 시 CSS 파일 연결 -->
+</head>
+<body>
+<h1>글 작성</h1>
+<form th:action="@{/boards}" method="post">
+  <div>
+    <label for="title"><strong>제목:</strong></label>
+    <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
+  </div>
+  <div>
+    <label for="contents"><strong>내용:</strong></label>
+    <textarea id="contents" name="contents" placeholder="내용을 입력하세요" rows="10" required></textarea>
+  </div>
+  <div>
+    <button type="submit">작성하기</button>
+    <a href="/boards">취소</a> <!-- 목록 페이지로 돌아가기 -->
+  </div>
+</form>
+</body>
+</html>

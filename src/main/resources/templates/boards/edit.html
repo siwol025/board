@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>게시글 수정</title>
+  <link rel="stylesheet" href="/css/style.css"> <!-- 필요 시 CSS 파일 연결 -->
+</head>
+<body>
+<h1>게시글 수정</h1>
+
+<form th:action="@{/boards/{id}/edit(id=${board.id})}" method="post">
+  <div>
+    <label for="title"><strong>제목:</strong></label>
+    <!-- 기존 제목을 초기 값으로 설정 -->
+    <input type="text" id="title" name="title" th:value="${board.title}" required>
+  </div>
+  <div>
+    <label for="contents"><strong>내용:</strong></label>
+    <!-- 기존 내용을 초기 값으로 설정 -->
+    <textarea id="contents" name="contents" rows="10" required th:text="${board.contents}"></textarea>
+  </div>
+  <div>
+    <button type="submit">수정 완료</button>
+    <a href="/boards">취소</a> <!-- 목록 페이지로 돌아가기 -->
+  </div>
+</form>
+</body>
+</html>
