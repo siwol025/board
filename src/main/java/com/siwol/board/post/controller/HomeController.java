@@ -1,4 +1,4 @@
-package com.siwol.board.controller;
+package com.siwol.board.post.controller;
 
 import com.siwol.board.user.auth.LoginUser;
 import com.siwol.board.user.dto.UserDto;

@@ -69,16 +69,16 @@
 <div class="container">
   <h1>게시글 수정</h1>
 
-  <form th:action="@{/boards/{id}/edit(id=${board.id})}" method="post">
+  <form th:action="@{/boards/{id}/edit(id=${post.id})}" method="post">
     <div class="form-group">
       <label for="title"><strong>제목:</strong></label>
       <!-- 기존 제목을 초기 값으로 설정 -->
-      <input type="text" id="title" name="title" th:value="${board.title}" class="form-control" required>
+      <input type="text" id="title" name="title" th:value="${post.title}" class="form-control" required>
     </div>
     <div class="form-group">
       <label for="contents"><strong>내용:</strong></label>
       <!-- 기존 내용을 초기 값으로 설정 -->
-      <textarea id="contents" name="contents" class="form-control" rows="10" required th:text="${board.contents}"></textarea>
+      <textarea id="contents" name="contents" class="form-control" rows="10" required th:text="${post.contents}"></textarea>
     </div>
     <div class="d-flex justify-content-between">
       <button type="submit" class="btn btn-primary">수정 완료</button>

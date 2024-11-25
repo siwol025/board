@@ -1,10 +1,14 @@
-package com.siwol.board.domain.entity;
+package com.siwol.board.post.domain.entity;
 
-import com.siwol.board.dto.request.BoardRequestDto;
+import com.siwol.board.post.dto.request.PostRequestDto;
+import com.siwol.board.user.domain.entitiy.User;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Board {
+public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,16 +29,21 @@ public class Board {
     @NotBlank
     private String contents;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User author;
+
     @Builder
-    public Board(Long id, String title, String contents) {
+    public Post(Long id, String title, String contents, User author) {
         this.id = id;
         this.title = title;
         this.contents = contents;
+        this.author = author;
     }
 
-    public Board update(BoardRequestDto boardRequestDto) {
-        this.title = boardRequestDto.getTitle();
-        this.contents = boardRequestDto.getContents();
+    public Post update(PostRequestDto postRequestDto) {
+        this.title = postRequestDto.getTitle();
+        this.contents = postRequestDto.getContents();
 
         return this;
     }

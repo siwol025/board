@@ -1,9 +1,9 @@
-package com.siwol.board.service;
+package com.siwol.board.post.service;
 
-import com.siwol.board.domain.entity.Board;
-import com.siwol.board.dto.request.BoardRequestDto;
-import com.siwol.board.dto.response.BoardResponseDto;
-import com.siwol.board.repository.BoardRepository;
+import com.siwol.board.post.domain.entity.Post;
+import com.siwol.board.post.dto.request.PostRequestDto;
+import com.siwol.board.post.dto.response.PostResponseDto;
+import com.siwol.board.post.repository.PostRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,40 +11,40 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class BoardService {
-    private final BoardRepository boardRepository;
+public class PostService {
+    private final PostRepository postRepository;
 
     @Transactional
-    public BoardResponseDto createPost(BoardRequestDto boardRequestDto) {
-        Board board = boardRepository.save(boardRequestDto.toBoard());
-        return BoardResponseDto.of(board);
+    public PostResponseDto createPost(PostRequestDto postRequestDto) {
+        Post post = postRepository.save(postRequestDto.toBoard());
+        return PostResponseDto.of(post);
     }
 
     @Transactional(readOnly = true)
-    public List<BoardResponseDto> findAllPosts() {
-        return boardRepository.findAll().stream().map(BoardResponseDto::of).toList();
+    public List<PostResponseDto> findAllPosts() {
+        return postRepository.findAll().stream().map(PostResponseDto::of).toList();
     }
 
     @Transactional(readOnly = true)
-    public BoardResponseDto findPostById(Long id) {
-        return boardRepository.findById(id).map(BoardResponseDto::of).orElseThrow(
+    public PostResponseDto findPostById(Long id) {
+        return postRepository.findById(id).map(PostResponseDto::of).orElseThrow(
                 () -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
         );
     }
 
     @Transactional
-    public BoardResponseDto updatePostById(Long id, BoardRequestDto boardRequestDto) {
-        Board board = boardRepository.findById(id).orElseThrow(
+    public PostResponseDto updatePostById(Long id, PostRequestDto postRequestDto) {
+        Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")
         );
 
-        Board updateBoard = board.update(boardRequestDto);
+        Post updatePost = post.update(postRequestDto);
 
-        return BoardResponseDto.of(updateBoard);
+        return PostResponseDto.of(updatePost);
     }
 
     @Transactional
     public void deletePostById(Long id) {
-        boardRepository.deleteById(id);
+        postRepository.deleteById(id);
     }
 }

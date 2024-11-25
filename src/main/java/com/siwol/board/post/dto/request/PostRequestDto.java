@@ -1,6 +1,6 @@
-package com.siwol.board.dto.request;
+package com.siwol.board.post.dto.request;
 
-import com.siwol.board.domain.entity.Board;
+import com.siwol.board.post.domain.entity.Post;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,19 +8,19 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class BoardRequestDto {
+public class PostRequestDto {
     private String title;
     private String contents;
 
-    public Board toBoard() {
-        return Board.builder()
+    public Post toBoard() {
+        return Post.builder()
                 .title(title)
                 .contents(contents)
                 .build();
     }
 
     @Builder
-    public BoardRequestDto(String title, String contents) {
+    public PostRequestDto(String title, String contents) {
         this.title = title;
         this.contents = contents;
     }

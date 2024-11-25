@@ -1,8 +1,8 @@
-package com.siwol.board.api.controller;
+package com.siwol.board.post.api.controller;
 
-import com.siwol.board.dto.request.BoardRequestDto;
-import com.siwol.board.dto.response.BoardResponseDto;
-import com.siwol.board.service.BoardService;
+import com.siwol.board.post.dto.request.PostRequestDto;
+import com.siwol.board.post.dto.response.PostResponseDto;
+import com.siwol.board.post.service.PostService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,27 +18,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/boards")
-public class BoardApiController {
-    private final BoardService boardService;
+public class PostApiController {
+    private final PostService boardService;
 
     @PostMapping
-    public ResponseEntity<BoardResponseDto> addPost(@RequestBody BoardRequestDto boardRequestDto) {
-        return ResponseEntity.ok(boardService.createPost(boardRequestDto));
+    public ResponseEntity<PostResponseDto> addPost(@RequestBody PostRequestDto postRequestDto) {
+        return ResponseEntity.ok(boardService.createPost(postRequestDto));
     }
 
     @GetMapping
-    public ResponseEntity<List<BoardResponseDto>> getAllPosts() {
+    public ResponseEntity<List<PostResponseDto>> getAllPosts() {
         return ResponseEntity.ok(boardService.findAllPosts());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BoardResponseDto> getPostById(@PathVariable Long id) {
+    public ResponseEntity<PostResponseDto> getPostById(@PathVariable Long id) {
         return ResponseEntity.ok(boardService.findPostById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BoardResponseDto> updatePost(@PathVariable Long id, @RequestBody BoardRequestDto boardRequestDto) {
-        return ResponseEntity.ok(boardService.updatePostById(id,boardRequestDto));
+    public ResponseEntity<PostResponseDto> updatePost(@PathVariable Long id, @RequestBody PostRequestDto postRequestDto) {
+        return ResponseEntity.ok(boardService.updatePostById(id, postRequestDto));
     }
 
     @DeleteMapping("/{id}")

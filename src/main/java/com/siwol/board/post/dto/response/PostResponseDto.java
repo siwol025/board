@@ -1,6 +1,6 @@
-package com.siwol.board.dto.response;
+package com.siwol.board.post.dto.response;
 
-import com.siwol.board.domain.entity.Board;
+import com.siwol.board.post.domain.entity.Post;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-public class BoardResponseDto {
+public class PostResponseDto {
     private Long id;
     private String title;
     private String contents;
 
-    public static BoardResponseDto of (Board board) {
-        return new BoardResponseDto(board.getId(), board.getTitle(), board.getContents());
+    public static PostResponseDto of (Post post) {
+        return new PostResponseDto(post.getId(), post.getTitle(), post.getContents());
     }
 }

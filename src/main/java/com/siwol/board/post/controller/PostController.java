@@ -1,11 +1,10 @@
-package com.siwol.board.controller;
+package com.siwol.board.post.controller;
 
-import com.siwol.board.dto.request.BoardRequestDto;
-import com.siwol.board.dto.response.BoardResponseDto;
-import com.siwol.board.service.BoardService;
+import com.siwol.board.post.dto.request.PostRequestDto;
+import com.siwol.board.post.dto.response.PostResponseDto;
+import com.siwol.board.post.service.PostService;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/boards")
-public class BoardController {
-    private final BoardService boardService;
+public class PostController {
+    private final PostService boardService;
 
     @GetMapping
     public String getAllPosts(Model model) {
@@ -32,8 +31,8 @@ public class BoardController {
     }
 
     @PostMapping
-    public String addPost(@ModelAttribute BoardRequestDto boardRequestDto) {
-        BoardResponseDto newBoard = boardService.createPost(boardRequestDto);
+    public String addPost(@ModelAttribute PostRequestDto postRequestDto) {
+        PostResponseDto newBoard = boardService.createPost(postRequestDto);
         return "redirect:/boards/" + newBoard.getId();
     }
 
@@ -50,8 +49,8 @@ public class BoardController {
     }
 
     @PostMapping("/{id}/edit")
-    public String updatePost(@PathVariable Long id, @ModelAttribute BoardRequestDto boardRequestDto) {
-        BoardResponseDto updatePost = boardService.updatePostById(id, boardRequestDto);
+    public String updatePost(@PathVariable Long id, @ModelAttribute PostRequestDto postRequestDto) {
+        PostResponseDto updatePost = boardService.updatePostById(id, postRequestDto);
         return "redirect:/boards/" + updatePost.getId();
     }
 
