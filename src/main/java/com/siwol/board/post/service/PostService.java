@@ -24,6 +24,7 @@ public class PostService {
                 () -> new IllegalArgumentException("찾을 수 없는 유저입니다."));
 
         Post post = postRepository.save(postRequestDto.toPost(user));
+
         return PostDetailResponseDto.of(post);
     }
 

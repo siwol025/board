@@ -28,6 +28,7 @@ public class UserService {
         );
     }
 
+    @Transactional(readOnly = true)
     public void login(HttpServletRequest request, LoginRequestDto loginRequestDto) {
         User user = userRepository.findByUsername(loginRequestDto.getUsername())
                 .filter(m -> m.getPassword().equals(loginRequestDto.getPassword()))

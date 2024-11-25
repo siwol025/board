@@ -5,6 +5,7 @@ import com.siwol.board.post.dto.response.PostDetailResponseDto;
 import com.siwol.board.post.service.PostService;
 
 import com.siwol.board.user.auth.LoginUser;
+import com.siwol.board.user.constant.SessionConst;
 import com.siwol.board.user.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -39,8 +40,9 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public String getPostById(@PathVariable Long id, Model model) {
+    public String getPostById(@PathVariable Long id, @LoginUser UserDto currentUser, Model model) {
         model.addAttribute("post", postService.getPostDetail(id));
+        model.addAttribute(SessionConst.LOGIN_USER, currentUser);
         return "boards/detail";
     }
 
