@@ -2,6 +2,7 @@ package com.siwol.board.post.domain.entity;
 
 import com.siwol.board.post.dto.request.PostRequestDto;
 import com.siwol.board.user.domain.entitiy.User;
+import com.siwol.board.user.dto.UserDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -41,10 +42,12 @@ public class Post {
         this.author = author;
     }
 
-    public Post update(PostRequestDto postRequestDto) {
+    public void update(PostRequestDto postRequestDto) {
         this.title = postRequestDto.getTitle();
         this.contents = postRequestDto.getContents();
+    }
 
-        return this;
+    public boolean isSameAuthor(UserDto user) {
+        return author.isSameUser(user);
     }
 }

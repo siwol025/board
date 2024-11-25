@@ -91,6 +91,7 @@
     <tr>
       <th>번호</th>
       <th>제목</th>
+      <th>작성자</th>  <!-- 작성자 컬럼 추가 -->
     </tr>
     </thead>
     <tbody>
@@ -100,6 +101,7 @@
       <td>
         <a th:href="@{'/boards/' + ${post.id}}" th:text="${post.title}">게시글 제목</a>
       </td>
+      <td th:text="${post.authorUsername}">작성자 이름</td>  <!-- 작성자 이름 표시 -->
     </tr>
     </tbody>
   </table>

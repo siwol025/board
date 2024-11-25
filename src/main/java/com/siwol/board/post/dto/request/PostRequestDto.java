@@ -1,6 +1,8 @@
 package com.siwol.board.post.dto.request;
 
 import com.siwol.board.post.domain.entity.Post;
+import com.siwol.board.user.domain.entitiy.User;
+import com.siwol.board.user.dto.UserDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,10 +14,11 @@ public class PostRequestDto {
     private String title;
     private String contents;
 
-    public Post toBoard() {
+    public Post toPost(User user) {
         return Post.builder()
                 .title(title)
                 .contents(contents)
+                .author(user)
                 .build();
     }
 

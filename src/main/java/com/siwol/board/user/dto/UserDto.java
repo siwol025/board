@@ -9,15 +9,18 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserDto {
+    private Long userId;
     private String username;
 
     @Builder
-    public UserDto(String username) {
+    public UserDto(Long userId, String username) {
+        this.userId = userId;
         this.username = username;
     }
 
     public static UserDto of(User user) {
         return UserDto.builder()
+                .userId(user.getId())
                 .username(user.getUsername())
                 .build();
     }

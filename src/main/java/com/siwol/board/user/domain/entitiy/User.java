@@ -1,5 +1,6 @@
 package com.siwol.board.user.domain.entitiy;
 
+import com.siwol.board.user.dto.UserDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,5 +32,9 @@ public class User {
         this.id = id;
         this.username = username;
         this.password = password;
+    }
+
+    public boolean isSameUser(UserDto currentUser) {
+        return this.id.equals(currentUser.getUserId());
     }
 }

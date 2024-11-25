@@ -91,6 +91,10 @@
       <span th:text="${post.title}">게시글 제목</span>
     </div>
     <div>
+      <label>작성자:</label>
+      <span th:text="${post.authorUsername}">작성자 이름</span> <!-- 작성자 이름 표시 -->
+    </div>
+    <div>
       <label>내용:</label>
       <p th:text="${post.contents}">게시글 내용</p>
     </div>
@@ -99,7 +103,7 @@
   <div class="d-flex justify-content-between">
     <a th:href="@{'/boards/' + ${post.id} + '/edit'}" class="btn btn-primary">수정하기</a>
 
-    <!-- 삭제하기 버튼 -->
+
     <form th:action="@{/boards/{id}/delete(id=${post.id})}" method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
       <button type="submit" class="btn btn-danger">삭제하기</button>
     </form>
