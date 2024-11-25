@@ -2,28 +2,119 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>게시판 목록</title>
-  <link rel="stylesheet" href="/css/style.css"> <!-- 필요 시 CSS 파일 연결 -->
+  <!-- 부트스트랩 CSS 링크 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .container {
+      max-width: 900px;
+      margin-top: 50px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    table {
+      width: 100%;
+      margin-bottom: 30px;
+    }
+
+    th {
+      background-color: #007bff;
+      color: #fff;
+      text-align: center;
+    }
+
+    td {
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px; /* 버튼 간격 설정 */
+      margin-top: 20px;
+    }
+
+    .btn-new, .btn-home {
+      width: 200px;
+      border-radius: 5px;
+      padding: 10px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .btn-new {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .btn-new:hover {
+      background-color: #218838;
+    }
+
+    .btn-home {
+      background-color: #17a2b8;
+      color: white;
+    }
+
+    .btn-home:hover {
+      background-color: #138496;
+    }
+  </style>
 </head>
 <body>
-<h1>게시판 목록</h1>
-<table border="1">
-  <thead>
-  <tr>
-    <th>번호</th>
-    <th>제목</th>
-  </tr>
-  </thead>
-  <tbody>
-  <!-- 게시글 리스트를 순회하며 출력 -->
-  <tr th:each="board : ${boards}">
-    <td th:text="${board.id}">1</td>
-    <td>
-      <a th:href="@{'/boards/' + ${board.id}}" th:text="${board.title}">게시글 제목</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
-<a href="/boards/new">새 글 작성</a> <!-- 새 글 작성 링크 -->
+
+<div class="container">
+  <h1>게시판 목록</h1>
+
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>번호</th>
+      <th>제목</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 게시글 리스트를 순회하며 출력 -->
+    <tr th:each="board : ${boards}">
+      <td th:text="${board.id}">1</td>
+      <td>
+        <a th:href="@{'/boards/' + ${board.id}}" th:text="${board.title}">게시글 제목</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- 홈과 새 글 작성 버튼을 테이블 아래에 배치 -->
+  <div class="btn-container">
+    <a href="/" class="btn btn-home">홈으로 가기</a>
+    <a href="/boards/new" class="btn btn-new">새 글 작성</a>
+  </div>
+</div>
+
+<!-- 부트스트랩 JS 및 의존성 스크립트 링크 -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zyA7K4c7h0pP60tG4dyFvkP2g5U4w4wPHmWmAsjm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0Y2hn7V4vRm1r8Wl17yJk5bWnF74AwaSAWwXM4U0ebOTgTsw" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-XzvFzD5trnF1FJmsnW8VmmbNfnrGSjWAQ0xM+9rs7ttrYnM2z60nsD1W9ZXjofjY" crossorigin="anonymous"></script>
+
 </body>
 </html>

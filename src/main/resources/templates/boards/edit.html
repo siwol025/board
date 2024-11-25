@@ -2,27 +2,95 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>게시글 수정</title>
-  <link rel="stylesheet" href="/css/style.css"> <!-- 필요 시 CSS 파일 연결 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .container {
+      max-width: 800px;
+      margin-top: 50px;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .btn {
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+
+    .btn-link {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .btn-link:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-<h1>게시글 수정</h1>
 
-<form th:action="@{/boards/{id}/edit(id=${board.id})}" method="post">
-  <div>
-    <label for="title"><strong>제목:</strong></label>
-    <!-- 기존 제목을 초기 값으로 설정 -->
-    <input type="text" id="title" name="title" th:value="${board.title}" required>
-  </div>
-  <div>
-    <label for="contents"><strong>내용:</strong></label>
-    <!-- 기존 내용을 초기 값으로 설정 -->
-    <textarea id="contents" name="contents" rows="10" required th:text="${board.contents}"></textarea>
-  </div>
-  <div>
-    <button type="submit">수정 완료</button>
-    <a href="/boards">취소</a> <!-- 목록 페이지로 돌아가기 -->
-  </div>
-</form>
+<div class="container">
+  <h1>게시글 수정</h1>
+
+  <form th:action="@{/boards/{id}/edit(id=${board.id})}" method="post">
+    <div class="form-group">
+      <label for="title"><strong>제목:</strong></label>
+      <!-- 기존 제목을 초기 값으로 설정 -->
+      <input type="text" id="title" name="title" th:value="${board.title}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="contents"><strong>내용:</strong></label>
+      <!-- 기존 내용을 초기 값으로 설정 -->
+      <textarea id="contents" name="contents" class="form-control" rows="10" required th:text="${board.contents}"></textarea>
+    </div>
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-primary">수정 완료</button>
+      <a href="/boards" class="btn btn-link">취소</a>
+    </div>
+  </form>
+</div>
+
+<!-- 부트스트랩 JS 및 의존성 스크립트 링크 -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zyA7K4c7h0pP60tG4dyFvkP2g5U4w4wPHmWmAsjm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0Y2hn7V4vRm1r8Wl17yJk5bWnF74AwaSAWwXM4U0ebOTgTsw" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-XzvFzD5trnF1FJmsnW8VmmbNfnrGSjWAQ0xM+9rs7ttrYnM2z60nsD1W9ZXjofjY" crossorigin="anonymous"></script>
+
 </body>
 </html>
