@@ -1,4 +1,4 @@
-package com.siwol.board.user.repository;
+package com.siwol.board.user.domain.repository;
 
 import com.siwol.board.user.domain.entitiy.User;
 import java.util.Optional;

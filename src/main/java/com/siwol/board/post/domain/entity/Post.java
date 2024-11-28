@@ -1,8 +1,11 @@
 package com.siwol.board.post.domain.entity;
 
+import com.siwol.board.comment.domain.Comments;
 import com.siwol.board.post.dto.request.PostRequestDto;
 import com.siwol.board.user.domain.entitiy.User;
 import com.siwol.board.user.dto.UserDto;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -34,12 +37,16 @@ public class Post {
     @JoinColumn(name = "user_id", nullable = false)
     private User author;
 
+    @Embedded
+    private Comments comments;
+
     @Builder
     public Post(Long id, String title, String contents, User author) {
         this.id = id;
         this.title = title;
         this.contents = contents;
         this.author = author;
+        this.comments = new Comments();
     }
 
     public void update(PostRequestDto postRequestDto) {

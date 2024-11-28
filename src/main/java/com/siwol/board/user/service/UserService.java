@@ -5,7 +5,7 @@ import com.siwol.board.user.domain.entitiy.User;
 import com.siwol.board.user.dto.UserDto;
 import com.siwol.board.user.dto.request.LoginRequestDto;
 import com.siwol.board.user.dto.request.UserRequestDto;
-import com.siwol.board.user.repository.UserRepository;
+import com.siwol.board.user.domain.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

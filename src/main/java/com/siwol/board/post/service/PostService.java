@@ -3,10 +3,10 @@ package com.siwol.board.post.service;
 import com.siwol.board.post.domain.entity.Post;
 import com.siwol.board.post.dto.request.PostRequestDto;
 import com.siwol.board.post.dto.response.PostDetailResponseDto;
-import com.siwol.board.post.repository.PostRepository;
+import com.siwol.board.post.domain.repository.PostRepository;
 import com.siwol.board.user.domain.entitiy.User;
 import com.siwol.board.user.dto.UserDto;
-import com.siwol.board.user.repository.UserRepository;
+import com.siwol.board.user.domain.repository.UserRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,8 @@ public class PostService {
     private final UserRepository userRepository;
 
     @Transactional
-    public PostDetailResponseDto createPost(PostRequestDto postRequestDto, UserDto currentUser) {
-        User user = userRepository.findById(currentUser.getUserId()).orElseThrow(
+    public PostDetailResponseDto createPost(PostRequestDto postRequestDto, UserDto loginUser) {
+        User user = userRepository.findById(loginUser.getUserId()).orElseThrow(
                 () -> new IllegalArgumentException("찾을 수 없는 유저입니다."));
 
         Post post = postRepository.save(postRequestDto.toPost(user));
@@ -40,17 +40,17 @@ public class PostService {
 
 
     @Transactional
-    public PostDetailResponseDto updatePostById(Long id, PostRequestDto postRequestDto, UserDto currentUser) {
+    public PostDetailResponseDto updatePostById(Long id, PostRequestDto postRequestDto, UserDto loginUser) {
         Post post = findPostById(id);
-        checkAuthor(post,currentUser);
+        checkAuthor(post,loginUser);
         post.update(postRequestDto);
 
         return PostDetailResponseDto.of(post);
     }
 
     @Transactional
-    public void deletePostById(Long id, UserDto currentUser) {
-        checkAuthor(findPostById(id), currentUser);
+    public void deletePostById(Long id, UserDto loginUser) {
+        checkAuthor(findPostById(id), loginUser);
         postRepository.deleteById(id);
     }
 
