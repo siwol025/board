@@ -2,7 +2,7 @@ package com.siwol.board.post.api.controller;
 
 import com.siwol.board.post.dto.request.PostRequestDto;
 import com.siwol.board.post.dto.response.PostDetailResponseDto;
-import com.siwol.board.post.service.PostService;
+import com.siwol.board.post.application.PostService;
 import com.siwol.board.user.auth.LoginUser;
 import com.siwol.board.user.dto.UserDto;
 import java.util.List;

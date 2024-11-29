@@ -1,6 +1,6 @@
-package com.siwol.board.post.service;
+package com.siwol.board.post.application;
 
-import com.siwol.board.post.common.SearchType;
+import com.siwol.board.post.application.search.SearchTypes;
 import com.siwol.board.post.domain.entity.Post;
 import com.siwol.board.post.dto.request.PostRequestDto;
 import com.siwol.board.post.dto.response.PostDetailResponseDto;
@@ -14,10 +14,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final SearchTypes searchTypes;
 
     @Transactional
     public PostDetailResponseDto createPost(PostRequestDto postRequestDto, UserDto loginUser) {
@@ -29,17 +31,14 @@ public class PostService {
         return PostDetailResponseDto.of(post);
     }
 
-    @Transactional(readOnly = true)
     public List<PostDetailResponseDto> findAllPosts() {
         return postRepository.findAll().stream().map(PostDetailResponseDto::of).toList();
     }
 
-    @Transactional(readOnly = true)
-    public List<PostDetailResponseDto> searchPosts(String keyword, SearchType searchType) {
-        return searchPostsBySearchType(keyword, searchType).stream().map(PostDetailResponseDto::of).toList();
+    public List<PostDetailResponseDto> searchPosts(String keyword, String type) {
+        return searchTypes.findByType(type).search(keyword).stream().map(PostDetailResponseDto::of).toList();
     }
 
-    @Transactional(readOnly = true)
     public PostDetailResponseDto getPostDetail(Long id) {
         return PostDetailResponseDto.of(findPostById(id));
     }
@@ -68,41 +67,5 @@ public class PostService {
         if (!post.isSameAuthor(user)) {
             throw new IllegalArgumentException("해당 게시글의 작성자가 아닙니다.");
         }
-    }
-
-    private List<Post> searchPostsBySearchType(String keyword, SearchType searchType) {
-        if (searchType == SearchType.TITLE) {
-            return findPostsByTitle(keyword);
-        }
-
-        if (searchType == SearchType.CONTENT) {
-            return findPostsByContents(keyword);
-        }
-
-        if (searchType == SearchType.TITLE_OR_CONTENT) {
-            return findPostsByTitleOrContents(keyword);
-        }
-
-        if (searchType == SearchType.AUTHOR) {
-            return findPostsByAuthor(keyword);
-        }
-
-        return postRepository.findAll();
-    }
-
-    private List<Post> findPostsByTitle(String keyword) {
-        return postRepository.findByTitleContainingIgnoreCase(keyword);
-    }
-
-    private List<Post> findPostsByContents(String keyword) {
-        return postRepository.findByContentsContainingIgnoreCase(keyword);
-    }
-
-    private List<Post> findPostsByTitleOrContents(String keyword) {
-        return postRepository.findByTitleOrContentsContainingIgnoreCase(keyword);
-    }
-
-    private List<Post> findPostsByAuthor(String keyword) {
-        return postRepository.findByAuthorUsernameContainingIgnoreCase(keyword);
     }
 }

@@ -1,9 +1,8 @@
 package com.siwol.board.post.controller;
 
-import com.siwol.board.post.common.SearchType;
 import com.siwol.board.post.dto.request.PostRequestDto;
 import com.siwol.board.post.dto.response.PostDetailResponseDto;
-import com.siwol.board.post.service.PostService;
+import com.siwol.board.post.application.PostService;
 
 import com.siwol.board.user.auth.LoginUser;
 import com.siwol.board.user.constant.SessionConst;
@@ -32,7 +31,7 @@ public class PostController {
 
     @GetMapping("/search")
     public String searchPosts(@RequestParam String searchType, @RequestParam String keyword, Model model) {
-        model.addAttribute("boards", postService.searchPosts(keyword, SearchType.findSearchType(searchType)));
+        model.addAttribute("boards", postService.searchPosts(keyword, searchType));
         return "boards/list";
     }
 
