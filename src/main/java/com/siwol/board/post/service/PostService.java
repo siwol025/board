@@ -1,5 +1,6 @@
 package com.siwol.board.post.service;
 
+import com.siwol.board.post.common.SearchType;
 import com.siwol.board.post.domain.entity.Post;
 import com.siwol.board.post.dto.request.PostRequestDto;
 import com.siwol.board.post.dto.response.PostDetailResponseDto;
@@ -34,10 +35,14 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
+    public List<PostDetailResponseDto> searchPosts(String keyword, SearchType searchType) {
+        return searchPostsBySearchType(keyword, searchType).stream().map(PostDetailResponseDto::of).toList();
+    }
+
+    @Transactional(readOnly = true)
     public PostDetailResponseDto getPostDetail(Long id) {
         return PostDetailResponseDto.of(findPostById(id));
     }
-
 
     @Transactional
     public PostDetailResponseDto updatePostById(Long id, PostRequestDto postRequestDto, UserDto loginUser) {
@@ -63,5 +68,41 @@ public class PostService {
         if (!post.isSameAuthor(user)) {
             throw new IllegalArgumentException("해당 게시글의 작성자가 아닙니다.");
         }
+    }
+
+    private List<Post> searchPostsBySearchType(String keyword, SearchType searchType) {
+        if (searchType == SearchType.TITLE) {
+            return findPostsByTitle(keyword);
+        }
+
+        if (searchType == SearchType.CONTENT) {
+            return findPostsByContents(keyword);
+        }
+
+        if (searchType == SearchType.TITLE_OR_CONTENT) {
+            return findPostsByTitleOrContents(keyword);
+        }
+
+        if (searchType == SearchType.AUTHOR) {
+            return findPostsByAuthor(keyword);
+        }
+
+        return postRepository.findAll();
+    }
+
+    private List<Post> findPostsByTitle(String keyword) {
+        return postRepository.findByTitleContainingIgnoreCase(keyword);
+    }
+
+    private List<Post> findPostsByContents(String keyword) {
+        return postRepository.findByContentsContainingIgnoreCase(keyword);
+    }
+
+    private List<Post> findPostsByTitleOrContents(String keyword) {
+        return postRepository.findByTitleOrContentsContainingIgnoreCase(keyword);
+    }
+
+    private List<Post> findPostsByAuthor(String keyword) {
+        return postRepository.findByAuthorUsernameContainingIgnoreCase(keyword);
     }
 }

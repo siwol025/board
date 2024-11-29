@@ -1,5 +1,6 @@
 package com.siwol.board.post.controller;
 
+import com.siwol.board.post.common.SearchType;
 import com.siwol.board.post.dto.request.PostRequestDto;
 import com.siwol.board.post.dto.response.PostDetailResponseDto;
 import com.siwol.board.post.service.PostService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,6 +27,12 @@ public class PostController {
     @GetMapping
     public String getAllPosts(Model model) {
         model.addAttribute("boards", postService.findAllPosts());
+        return "boards/list";
+    }
+
+    @GetMapping("/search")
+    public String searchPosts(@RequestParam String searchType, @RequestParam String keyword, Model model) {
+        model.addAttribute("boards", postService.searchPosts(keyword, SearchType.findSearchType(searchType)));
         return "boards/list";
     }
 
