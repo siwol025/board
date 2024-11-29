@@ -41,7 +41,9 @@ public class PostController {
 
     @GetMapping("/{id}")
     public String getPostById(@PathVariable Long id, @LoginUser UserDto currentUser, Model model) {
-        model.addAttribute("post", postService.getPostDetail(id));
+        PostDetailResponseDto postDetail = postService.getPostDetail(id);
+        model.addAttribute("post", postDetail);
+        model.addAttribute("comments", postDetail.getCommentResponseDtoList());
         model.addAttribute(SessionConst.LOGIN_USER, currentUser);
         return "boards/detail";
     }

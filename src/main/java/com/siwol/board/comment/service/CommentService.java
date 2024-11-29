@@ -2,12 +2,11 @@ package com.siwol.board.comment.service;
 
 import com.siwol.board.comment.domain.CommentRepository;
 import com.siwol.board.comment.domain.entity.Comment;
-import com.siwol.board.comment.dto.CommentRequestDto;
+import com.siwol.board.comment.dto.request.CommentRequestDto;
 import com.siwol.board.post.domain.entity.Post;
 import com.siwol.board.post.domain.repository.PostRepository;
 import com.siwol.board.user.domain.entitiy.User;
 import com.siwol.board.user.domain.repository.UserRepository;
-import com.siwol.board.user.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

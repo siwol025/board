@@ -1,6 +1,8 @@
 package com.siwol.board.post.dto.response;
 
+import com.siwol.board.comment.dto.response.CommentResponseDto;
 import com.siwol.board.post.domain.entity.Post;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,9 +17,10 @@ public class PostDetailResponseDto {
     private String contents;
     private Long authorId;
     private String authorUsername;
+    private List<CommentResponseDto> commentResponseDtoList;
 
     public static PostDetailResponseDto of (Post post) {
         return new PostDetailResponseDto(post.getId(), post.getTitle(),
-                post.getContents(), post.getAuthor().getId(), post.getAuthor().getUsername());
+                post.getContents(), post.getAuthor().getId(), post.getAuthor().getUsername(), post.getCommentResponseDtoList());
     }
 }

@@ -1,10 +1,10 @@
 package com.siwol.board.post.domain.entity;
 
 import com.siwol.board.comment.domain.Comments;
+import com.siwol.board.comment.dto.response.CommentResponseDto;
 import com.siwol.board.post.dto.request.PostRequestDto;
 import com.siwol.board.user.domain.entitiy.User;
 import com.siwol.board.user.dto.UserDto;
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -56,5 +57,9 @@ public class Post {
 
     public boolean isSameAuthor(UserDto user) {
         return author.isSameUser(user);
+    }
+
+    public List<CommentResponseDto> getCommentResponseDtoList() {
+        return comments.toDtoList();
     }
 }

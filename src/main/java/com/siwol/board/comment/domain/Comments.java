@@ -1,6 +1,7 @@
 package com.siwol.board.comment.domain;
 
 import com.siwol.board.comment.domain.entity.Comment;
+import com.siwol.board.comment.dto.response.CommentResponseDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.FetchType;
@@ -23,4 +24,7 @@ public class Comments {
         this.comments = comments;
     }
 
+    public List<CommentResponseDto> toDtoList() {
+        return comments.stream().map(CommentResponseDto::of).toList();
+    }
 }

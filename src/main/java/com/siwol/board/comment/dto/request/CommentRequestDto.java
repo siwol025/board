@@ -1,4 +1,4 @@
-package com.siwol.board.comment.dto;
+package com.siwol.board.comment.dto.request;
 
 import com.siwol.board.comment.domain.entity.Comment;
 import com.siwol.board.post.domain.entity.Post;

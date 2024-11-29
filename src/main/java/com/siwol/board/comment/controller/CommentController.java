@@ -1,6 +1,6 @@
 package com.siwol.board.comment.controller;
 
-import com.siwol.board.comment.dto.CommentRequestDto;
+import com.siwol.board.comment.dto.request.CommentRequestDto;
 import com.siwol.board.comment.service.CommentService;
 import com.siwol.board.user.auth.LoginUser;
 import com.siwol.board.user.dto.UserDto;

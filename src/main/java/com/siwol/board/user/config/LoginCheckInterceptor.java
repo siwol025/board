@@ -17,10 +17,21 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         HttpSession session = request.getSession(false);
 
         if (session == null || session.getAttribute(SessionConst.LOGIN_USER) == null) {
-            response.sendRedirect("/accounts/login?redirectURL=" + requestURI);
+            response.sendRedirect("/accounts/login?redirectURL=" + normalizeRequestUri(request, requestURI));
             return false;
         }
 
         return true;
+    }
+
+    private String normalizeRequestUri(HttpServletRequest request, String requestURI) {
+        if ("POST".equalsIgnoreCase(request.getMethod()) && requestURI.startsWith("/boards/")) {
+            String[] uriParts = requestURI.split("/");
+            if (uriParts.length >= 3) {
+                String postId = uriParts[2]; // postId 추출
+                requestURI = "/boards/" + postId;
+            }
+        }
+        return requestURI;
     }
 }
