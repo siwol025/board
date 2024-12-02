@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class UserService {
     private final UserRepository userRepository;
 
@@ -28,7 +29,6 @@ public class UserService {
         );
     }
 
-    @Transactional(readOnly = true)
     public void login(HttpServletRequest request, LoginRequestDto loginRequestDto) {
         User user = userRepository.findByUsername(loginRequestDto.getUsername())
                 .filter(m -> m.getPassword().equals(loginRequestDto.getPassword()))
